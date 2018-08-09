@@ -21,7 +21,7 @@ class ShopController extends BaseController
     {
         $shops=Shop::where("status",1)->get();
         if($request->keyword !==null){
-            $shops=Shop::where("shop_name","like","%{$request->keyword}%")->where("status",1)->get();
+            $shops=Shop::search($request->keyword)->where("status",1)->get();
         }
       foreach ( $shops as $shop){
           $shop->distance =rand(200,1000);

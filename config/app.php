@@ -178,6 +178,12 @@ return [
         App\Providers\RouteServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
         Overtrue\LaravelUEditor\UEditorServiceProvider::class,
+
+        /**
+         * 全文索引
+         */
+        Laravel\Scout\ScoutServiceProvider::class,
+        Vanry\Scout\TNTSearchScoutServiceProvider::class,
     ],
 
     /*
