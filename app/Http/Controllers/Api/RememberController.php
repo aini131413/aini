@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Mail\OrderShipped;
 use App\Mail\Shipped;
 use App\Models\Order;
 use App\Models\User;
@@ -98,7 +99,9 @@ class RememberController extends BaseController
         }
         $tel = $request->input("tel");
         $sms = $request->input("sms");
-        if ($sms !== Redis::get("tel_$tel")) {
+
+//        dd($sms,cache("tel_".$tel));
+        if ($sms != cache("tel_".$tel)) {
             return [
                 "status" => "false",
                 "message" => "验证码错误"
@@ -167,7 +170,7 @@ class RememberController extends BaseController
        $vip= Vip::where("tel",$tel)->first();
 //        var_dump($vip);exit;
         if($vip){
-            if($sms !== Redis::get("tel_$tel")){
+            if($sms != cache("tel_$tel")){
                 return["status"=>"false","message"=>"验证码错误"];
             }
             if ($vip->update(["password"=>bcrypt($password)])) {
@@ -251,7 +254,7 @@ class RememberController extends BaseController
 //            通过shop_id找到商家的信息
             $user=User::where('shop_id',$shop_id)->first();
 //            发邮件
-            Mail::to($user)->send(new Shipped($order));
+            Mail::to($user)->send(new OrderShipped($order));
 //            dd($tel);
 //            发短信
 
@@ -262,7 +265,7 @@ class RememberController extends BaseController
             ];
 
             $aliSms = new AliSms();
-            $response = $aliSms->sendSms($tel, 'SMS_141645187', ['product'=> $order->sn], $config);
+            $response = $aliSms->sendSms($tel, 'SMS_141582658', ['code'=> $order->sn,'name'=>$order->name], $config);
 
 
 
