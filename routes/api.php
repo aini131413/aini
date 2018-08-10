@@ -45,6 +45,9 @@ Route::any("cart/list","CartController@list");
 Route::any("order/add","OrderController@add");
 Route::any("order/detail","OrderController@detail");
 Route::any("order/list","OrderController@list");
+//微信支付路由
+Route::any("order/wxPay","OrderController@wxPay");
+Route::any("order/ok","OrderController@ok");
 
 
 

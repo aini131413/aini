@@ -34,5 +34,9 @@ window.api = {
   // 支付接口
   pay: '/api/remember/pay',
     // 用户详情接口
-  userDetail: 'api/remember/detail'
+  userDetail: '/api/remember/detail',
+    // 微信支付
+ wxPay: '/api/order/wxPay',
+    // 订单状态
+wxStatus: '/api/order/status'
 };
